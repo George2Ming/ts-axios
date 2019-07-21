@@ -2,7 +2,7 @@
  * 工具方法
  * 根据参数params返回拼接后的url
  */
-import { isDate, isObject } from './util'
+import { isDate, isPlainObject } from './util'
 
 // 对特殊字符串做处理,有些不需要转义
 function encode(val:string):string {
@@ -42,11 +42,11 @@ export function buildURL(url:string, params?:any):string {
     values.forEach(val => {
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isObject(val)) {
+      } else if (isPlainObject(val)) {
         val = JSON.stringify(val)
       }
+      parts.push(`${encode(key)}=${encode(val)}`)
     })
-    parts.push(`${encode(key)}=${encode(val)}`)
   })
 
   let serializedParams = parts.join('&')
