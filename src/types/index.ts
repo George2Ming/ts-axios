@@ -53,6 +53,10 @@ export interface Axios {
   patch(url:string, data?:any, config?:AxiosRequestConfig): AxiosPromise
 }
 
+// axios实例类型
 export interface AxiosInstance extends Axios{
+  // 直接传一个对象
   (config:AxiosRequestConfig): AxiosPromise
+  // 第一个参数穿地址,后续config可选
+  (url:string, config?:AxiosRequestConfig): AxiosPromise
 }
