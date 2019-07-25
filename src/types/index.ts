@@ -1,3 +1,4 @@
+
 export type Method = 'get' | 'GET'
   | 'DELETE' | 'delete'
   | 'head' | 'HEAD'
@@ -36,6 +37,12 @@ export interface AxiosError extends Error{
 }
 
 export interface Axios {
+  // 拦截器定义
+  interceptors: {
+    request: AxiosInterceptorManager<AxiosRequestConfig>
+    response: AxiosInterceptorManager<AxiosResponse>
+  }
+
   request<T=any>(config: AxiosRequestConfig): AxiosPromise<T>
 
   get<T=any>(url:string,config?:AxiosRequestConfig): AxiosPromise<T>
@@ -59,4 +66,20 @@ export interface AxiosInstance extends Axios{
   <T=any>(config:AxiosRequestConfig): AxiosPromise<T>
   // 第一个参数穿地址,后续config可选
   <T=any>(url:string, config?:AxiosRequestConfig): AxiosPromise<T>
+}
+
+// 拦截器
+export interface AxiosInterceptorManager<T> {
+  // 使用拦截器
+  use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
+  // 删除拦截器
+  eject(id: number): void
+}
+
+export interface ResolvedFn<T> {
+  (val:T):T|Promise<T>
+}
+
+export interface RejectedFn {
+  (error: any): any
 }
