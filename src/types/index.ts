@@ -74,6 +74,11 @@ export interface AxiosInstance extends Axios{
   <T=any>(url:string, config?:AxiosRequestConfig): AxiosPromise<T>
 }
 
+// 静态方法,生成多个实例
+export interface AxiosStatic extends AxiosInstance{
+  create(config?: AxiosRequestConfig): AxiosInstance
+}
+
 // 拦截器
 export interface AxiosInterceptorManager<T> {
   // 使用拦截器
