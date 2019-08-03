@@ -6,6 +6,7 @@ import { flattenHeaders, processHeaders } from '../helpers/headers'
 import transform from './transform'
 
 export default function dispatchRequest(config:AxiosRequestConfig):AxiosPromise {
+  throwIfCancellationRequested(config)
   processConfig(config)
 
   return xhr(config).then((res) => {
@@ -38,3 +39,9 @@ function transformResponseData(res: AxiosResponse):AxiosResponse {
   return res
 }
 
+// 已经取消过了就不再重复取消
+function throwIfCancellationRequested(config: AxiosRequestConfig):void {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
