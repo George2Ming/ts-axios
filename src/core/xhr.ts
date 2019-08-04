@@ -19,7 +19,8 @@ export default function xhr(config:AxiosRequestConfig):AxiosPromise {
       xsrfHeaderName,
       xsrfCookieName,
       onUploadProgress,
-      onDownloadProgress
+      onDownloadProgress,
+      auth
     } = config
 
     const request = new XMLHttpRequest()
@@ -111,6 +112,9 @@ export default function xhr(config:AxiosRequestConfig):AxiosPromise {
         }
       }
 
+      if (auth) {
+        headers['Authorization'] = 'Basic' + btoa(auth.username + ':' + auth.password)
+      }
 
       // 设置请求headers
       Object.keys(headers).forEach(name => {
