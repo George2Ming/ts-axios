@@ -21,6 +21,8 @@ export interface AxiosRequestConfig {
   withCredentials?:boolean // 跨域请求携带cookie
   xsrfCookieName?:string
   xsrfHeaderName?:string
+  onDownloadProgress?: (e:ProgressEvent) => void // 下载过程
+  onUploadProgress?: (e: ProgressEvent) => void  // 上传过程
 
   [propName:string]:any
 }

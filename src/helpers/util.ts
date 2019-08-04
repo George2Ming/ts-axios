@@ -1,3 +1,5 @@
+import { type } from 'os'
+
 const toString = Object.prototype.toString
 
 // 判断是不是Date类型
@@ -13,6 +15,11 @@ export function isDate(val:any): val is Date {
 // 判断普通对象
 export function isPlainObject(val: any): val is Object {
   return toString.call(val) === '[object Object]'
+}
+
+// 表单类型
+export function isFormData(val:any):val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
 }
 
 export function extend<T, U>(to: T, from: U):T&U {
