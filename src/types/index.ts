@@ -18,7 +18,7 @@ export interface AxiosRequestConfig {
   transformRequest?:AxiosTransformer|AxiosTransformer[] // 请求配置
   transformResponse?:AxiosTransformer|AxiosTransformer[] // 响应配置
   cancelToken?:CancelToken // 请求取消的token
-
+  withCredentials?:boolean // 跨域请求携带cookie
 
   [propName:string]:any
 }
